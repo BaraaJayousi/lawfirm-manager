@@ -4,6 +4,7 @@ import { lazy } from 'react';
 import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
 
+
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 
@@ -19,6 +20,7 @@ const CustomerPage = Loadable(lazy(() => import('pages/customer')));
 const CasesPage = Loadable(lazy(() => import('pages/cases')));
 const CasesTypesPage = Loadable(lazy(() => import('pages/cases-types')));
 const CasePage = Loadable(lazy(() => import('pages/case')));
+const CreateCasePage = Loadable(lazy(()=> import('pages/case-create')))
 
 // render - utilities
 const Typography = Loadable(lazy(() => import('pages/components-overview/Typography')));
@@ -88,6 +90,10 @@ const MainRoutes = {
     {
       path: `cases/:id`,
       element: <CasePage />
+    },
+    {
+      path: 'cases/create',
+      element: <CreateCasePage />
     }
   ]
 };

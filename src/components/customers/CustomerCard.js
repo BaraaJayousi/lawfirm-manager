@@ -3,7 +3,6 @@ import React from 'react';
 import { Stack, Typography, Divider } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
 function CustomerCard() {
   return (
     <>

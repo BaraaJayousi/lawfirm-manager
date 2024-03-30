@@ -6,6 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import TypesTable from 'components/customers/TypesTable';
 
+
+function createData(idNo, name) {
+  return { idNo, name };}
+
+const rows = [createData(1, 'مدعي'), createData(2, 'مدعى عليه'), createData(3, 'جاني'), createData(4, 'مجني عليه')];
+
 const index = () => {
   return (
     <>
@@ -19,7 +25,7 @@ const index = () => {
         <Grid item>
           <MainCard content={false} sx={{ mt: 3, pb: 5 }}>
             <Stack direction="column" spacing={4.5}>
-              <TypesTable />
+              <TypesTable typesEnteries={rows}/>
               <Pagination count={10} shape="rounded" color="primary" />
             </Stack>
           </MainCard>

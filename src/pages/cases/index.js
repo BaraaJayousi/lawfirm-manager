@@ -9,7 +9,7 @@ const index = () => {
   return (
     <>
       <Stack spacing={2}>
-        <Header title="قضايا العملاء" btnTitle="قضيه جديده" icon={<FontAwesomeIcon icon="fa-solid fa-gavel" />} />
+        <Header title="قضايا العملاء" btnTitle="قضيه جديده" icon={<FontAwesomeIcon icon="fa-solid fa-gavel" />} link="cases/create" />
         <MainCard>
           <CasesTable />
         </MainCard>

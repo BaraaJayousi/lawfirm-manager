@@ -3,29 +3,18 @@ import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import { Box, Link, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, IconButton } from '@mui/material';
+import { Box, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton } from '@mui/material';
 
 // third-party
-import NumberFormat from 'react-number-format';
+// import NumberFormat from 'react-number-format';
 
 // project import
-import Dot from 'components/@extended/Dot';
+// import Dot from 'components/@extended/Dot';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import Palette from './../../themes/palette';
+import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+// import Palette from './../../themes/palette';
 
-function createData(idNo, name) {
-        
-    return { idNo, name };
-}
 
-const rows = [
-    createData(1, 'مدعي'),
-    createData(2, 'مدعى عليه'),
-    createData(3, 'جاني'),
-    createData(4, 'مجني عليه'),
-    
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -67,7 +56,7 @@ const headCells = [
     align: 'left',
     disablePadding: true,
     label: 'اسم النوع'
-},
+  },
   {
     id: 'actions',
     align: 'right',
@@ -98,31 +87,27 @@ function OrderTableHead({ order, orderBy }) {
 }
 
 OrderTableHead.propTypes = {
-order: PropTypes.string,
-orderBy: PropTypes.string
+  order: PropTypes.string,
+  orderBy: PropTypes.string
 };
 
+// ==============================|| CUSTOMERS TABLE - ACTION BUTTONS ==================== //
 
-// ==============================|| CUSTOEMRS TABLE - ACTION BUTTONS ==================== //
-
-const ActionButtons = ()=>{
-
-    return(
-        <>
-            <IconButton color="primary">
-                <FontAwesomeIcon icon={faPen}  />
-            </IconButton>
-            <IconButton color="error">
-            <FontAwesomeIcon icon={faTrashCan} />
-            </IconButton>
-
-        </>
-    )
+const ActionButtons = () => {
+  return (
+    <>
+      <IconButton color="primary">
+        <FontAwesomeIcon icon={faPen} />
+      </IconButton>
+      <IconButton color="error">
+        <FontAwesomeIcon icon={faTrashCan} />
+      </IconButton>
+    </>
+  );
 };
-
 
 // ==============================|| TYPES TABLE ||============================== //
-const TypesTable = () => {
+const TypesTable = ({ typesEnteries }) => {
   const [order] = useState('asc');
   const [orderBy] = useState('idNo');
   const [selected] = useState([]);
@@ -153,7 +138,7 @@ const TypesTable = () => {
         >
           <OrderTableHead order={order} orderBy={orderBy} />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
+            {stableSort(typesEnteries, getComparator(order, orderBy)).map((row, index) => {
               const isItemSelected = isSelected(row.idNo);
               const labelId = `enhanced-table-checkbox-${index}`;
               return (
@@ -167,9 +152,9 @@ const TypesTable = () => {
                   selected={isItemSelected}
                 >
                   <TableCell component="th" id={labelId} scope="row" align="left">
-                      <Link color="secondary" component={RouterLink} to="">
-                          {row.idNo}
-                      </Link>
+                    <Link color="secondary" component={RouterLink} to="">
+                      {row.idNo}
+                    </Link>
                   </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="right">
@@ -177,13 +162,12 @@ const TypesTable = () => {
                   </TableCell>
                 </TableRow>
               );
-          })}
+            })}
           </TableBody>
         </Table>
       </TableContainer>
-
     </Box>
-);
-}
+  );
+};
 
-export default TypesTable
+export default TypesTable;

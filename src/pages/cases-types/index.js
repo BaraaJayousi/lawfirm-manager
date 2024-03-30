@@ -1,12 +1,18 @@
-import React from 'react'
-import { Stack, Grid, Typography, Button, Pagination } from '@mui/material'
-import MainCard from 'components/MainCard'
+import React from 'react';
+import { Stack, Grid, Typography, Button, Pagination } from '@mui/material';
+import MainCard from 'components/MainCard';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import TypesTable from 'components/customers/TypesTable';
 
-const index = () =>{
+
+function createData(idNo, name) {
+  return { idNo, name };
+}
+
+const rows = [createData(1, 'جنائي'), createData(2, 'شرعي'), createData(3, 'اخرى'), createData(4, 'قضائي')];
+const index = () => {
   return (
     <>
       <Stack direction="row" justifyContent="space-between">
@@ -17,9 +23,9 @@ const index = () =>{
       </Stack>
       <Grid Container>
         <Grid item>
-          <MainCard content={false} sx={{mt:3, pb:5 }}>
+          <MainCard content={false} sx={{ mt: 3, pb: 5 }}>
             <Stack direction="column" spacing={4.5}>
-              <TypesTable />
+              <TypesTable typesEnteries={rows} />
               <Pagination count={10} shape="rounded" color="primary" />
             </Stack>
           </MainCard>
@@ -29,4 +35,4 @@ const index = () =>{
   );
 };
 
-export default index
+export default index;
