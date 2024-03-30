@@ -5,7 +5,7 @@ import { prefixer } from 'stylis';
 // material-ui
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import * as locales from '@mui/material/locale';
+// import * as locales from '@mui/material/locale';
 
 //rtl imports
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -37,35 +37,34 @@ export default function ThemeCustomization({ children }) {
   });
 
   const themeOptions = useMemo(
-    () => createTheme({
-      breakpoints: {
-        values: {
-          xs: 0,
-          sm: 768,
-          md: 1024,
-          lg: 1266,
-          xl: 1536
-        }
-      },
-      direction: 'rtl',
-      mixins: {
-        toolbar: {
-          minHeight: 60,
-          paddingTop: 8,
-          paddingBottom: 8
-        }
-      },
-      palette: theme.palette,
-      customShadows: themeCustomShadows,
-      typography: themeTypography
-    }),
+    () =>
+      createTheme({
+        breakpoints: {
+          values: {
+            xs: 0,
+            sm: 768,
+            md: 1024,
+            lg: 1266,
+            xl: 1536
+          }
+        },
+        direction: 'rtl',
+        mixins: {
+          toolbar: {
+            minHeight: 60,
+            paddingTop: 8,
+            paddingBottom: 8
+          }
+        },
+        palette: theme.palette,
+        customShadows: themeCustomShadows,
+        typography: themeTypography
+      }),
     [theme, themeTypography, themeCustomShadows]
   );
   const themes = createTheme(themeOptions);
-  console.log('thisis pre themes componentes', themes.components)
+  // console.log('this is pre themes components', themes.components);
   themes.components = componentsOverride(themes);
-  console.log('thisis post themes componentes', themes.components)
-
 
   return (
     <StyledEngineProvider injectFirst>
