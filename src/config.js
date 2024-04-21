@@ -3,12 +3,12 @@
 const config = {
   defaultPath: '/dashboard/default',
   fontFamily: `'Public Sans', sans-serif`,
-  i18n: 'en',
+  i18n: 'ar',
   miniDrawer: false,
   container: true,
   mode: 'light',
   presetColor: 'default',
-  themeDirection: 'ltr'
+  themeDirection: 'rtl'
 };
 
 export default config;

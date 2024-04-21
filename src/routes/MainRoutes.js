@@ -28,6 +28,9 @@ const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
 
+// render - expenses
+const Expenses = Loadable(lazy(()=> import('pages/expenses')));
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -80,7 +83,7 @@ const MainRoutes = {
       element: <CustomerPage />
     },
     {
-      path: `cases/`,
+      path: `cases`,
       element: <CasesPage />
     },
     {
@@ -92,8 +95,12 @@ const MainRoutes = {
       element: <CasePage />
     },
     {
-      path: 'cases/create',
+      path: `cases/create`,
       element: <CreateCasePage />
+    },
+    {
+      path: `expenses`,
+      element: <Expenses />
     }
   ]
 };

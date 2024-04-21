@@ -13,8 +13,8 @@ const index = () => {
   return (
     <>
       <Stack spacing={2}>
-        <Header title="تفاصي القضيه" btnTitle="تعديل" icon={<FontAwesomeIcon icon="fa-solid fa-pen-to-square" />} />
-        <Grid container spacing={0} >
+        <Header title="تفاصيل القضيه" btnTitle="تعديل" icon={<FontAwesomeIcon icon="fa-solid fa-pen-to-square" />} />
+        <Grid container spacing={0}>
           <Grid item xs={12} sm={12} md={4} xl={4}>
             <CaseCard />
           </Grid>
@@ -64,7 +64,7 @@ const index = () => {
         </Grid>
       </Stack>
     </>
-);
+  );
 };
 
 export default index;

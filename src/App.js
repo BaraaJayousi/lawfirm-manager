@@ -4,11 +4,11 @@ import ThemeCustomization from 'themes';
 import ScrollTop from 'components/ScrollTop';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faGavel, faUser, faPenToSquare, faAngleDown, faTrash, faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faGavel, faUser, faPenToSquare, faAngleDown, faTrash, faCloudArrowUp, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 
 // ==============================|| APP - THEME, ROUTER, LOCAL  ||============================== //
-library.add(faGavel, faUser, faPenToSquare, faAngleDown, faTrash, faCloudArrowUp);
+library.add(faGavel, faUser, faPenToSquare, faAngleDown, faTrash, faCloudArrowUp, faMoneyBill);
 const App = () => (
   <ThemeCustomization>
     <ScrollTop>

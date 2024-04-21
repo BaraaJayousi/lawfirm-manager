@@ -7,9 +7,13 @@ const Header = ({ title, btnTitle, icon, link }) => {
     <>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h3">{title}</Typography>
-        <Button component="a" href={link} variant="contained" startIcon={icon}>
-          <Typography variant="h5">{btnTitle}</Typography>
-        </Button>
+        {btnTitle ? (
+          <Button component="a" href={link} variant="contained" startIcon={icon}>
+            <Typography variant="h5">{btnTitle}</Typography>
+          </Button>
+        ) : (
+          ''
+        )}
       </Stack>
     </>
   );
