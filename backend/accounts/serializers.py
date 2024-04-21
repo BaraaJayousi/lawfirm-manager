@@ -1,4 +1,3 @@
-from dataclasses import field
 from rest_framework import serializers
 from .models import User
 
@@ -13,8 +12,18 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     model = User
     fields= ['email', 'name', 'password', 'password2']
 
+#Validate the input data for the model
   def validate(self, attrs):
+    password = attrs.get("password",'')
+    password2= attrs.get("password2", '')
+    if password != password2:
+      raise serializers.ValidationError("Passwords do not match")
     return super().validate(attrs)
   
   def create(self, validated_data):
-    return super().create(validated_data)
+    user = User.objects.create_user(
+      email= validated_data['email'],
+      name= validated_data['name'],
+      password= validated_data['password']
+      )
+    return user
