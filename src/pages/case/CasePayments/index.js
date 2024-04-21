@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Stack, Typography, Button } from '@mui/material';
-import PaymentsTable from './PyamentsTable';
+import PaymentsTable from './PaymentsTable';
 import MainCard from 'components/MainCard';
 import NewPaymentModal from './NewPaymentModal';
 
 const index = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

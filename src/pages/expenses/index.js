@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Stack, Grid, Typography, Button, Pagination } from '@mui/material';
 import CustomersTable from 'components/customers/CustomersTable';
 import MainCard from 'components/MainCard';
@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 function index() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

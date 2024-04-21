@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import { Box, Link, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, IconButton } from '@mui/material';
+import { Box, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, IconButton } from '@mui/material';
 
 // third-party
-import NumberFormat from 'react-number-format';
+// import NumberFormat from 'react-number-format';
 
 // project import
 import Dot from 'components/@extended/Dot';
@@ -161,7 +161,7 @@ OrderStatus.propTypes = {
   status: PropTypes.number
 };
 
-// ==============================|| CUSTOEMRS TABLE - ACTION BUTTONS ==================== //
+// ==============================|| CUSTOMERS TABLE - ACTION BUTTONS ==================== //
 
 const ActionButtons = () => {
   return (
