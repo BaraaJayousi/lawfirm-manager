@@ -95,7 +95,7 @@ DATABASES = {
 ### Registering our user model as authentication user model in django 
 AUTH_USER_MODEL= "accounts.User"
 
-## Configure Restframe work settings, with default auth class set to simple jwt
+## Configure Rest framework settings, with default auth class set to simple jwt
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
