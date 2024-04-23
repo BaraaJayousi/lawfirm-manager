@@ -1,10 +1,9 @@
-from ast import mod
-from pyexpat import model
-from turtle import mode
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 #importing UserManager class
 from .manager import UserManager
+
+
 # Create your models here.
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -12,6 +11,7 @@ class User(AbstractBaseUser, PermissionsMixin):
   name= models.CharField(max_length=255)
   is_superuser= models.BooleanField(default=False)
   is_staff = models.BooleanField(default=False)
+  is_verified = models.BooleanField(default=False)
   last_login=models.DateTimeField(auto_now=True)
   created_at= models.DateTimeField(auto_now_add=True)
   updated_at= models.DateTimeField(auto_now=True)
@@ -29,6 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
   def get_full_name(self):
     return self.name
 
+# Generate authentication token
   def tokens(self):
     pass
 

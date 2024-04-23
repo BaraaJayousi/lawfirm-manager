@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import User
-
+from django.contrib.auth import authenticate
+from rest_framework.exceptions import AuthenticationFailed
 #formats registration data coming from the frontend into python format
 class UserRegisterSerializer(serializers.ModelSerializer):
 
@@ -27,3 +28,30 @@ class UserRegisterSerializer(serializers.ModelSerializer):
       password= validated_data['password']
       )
     return user
+  
+
+class LoginSerializer(serializers.ModelSerializer):
+  email=serializers.EmailField(max_length=100)
+  password= serializers.CharField(write_only=True, max_length=100)
+  name= serializers.CharField(max_length=255, read_only=True)
+  access_token= serializers.CharField(max_length=255, read_only=True)
+  refresh_token= serializers.CharField(max_length=255, read_only=True)
+
+  class Meta:
+    model=User
+    fields=['email', 'password', 'name', 'access_token', 'refresh_token']
+
+  def validate(self, attrs):
+    email=attrs.get('email')
+    password=attrs.get('password')
+    request= self.context.get('request')
+    user=authenticate(request=request, email=email, password=password)
+    if not user:
+      raise AuthenticationFailed
+    
+    token = user.tokens()
+    return {
+      'email': user.email,
+      'name': user.get_full_name,
+      'access_token': token
+    }

@@ -6,7 +6,7 @@ from .models import User, OneTimePassword
 #Utilities module for, added extra functionalities 
 
 #generates OTP code for email verification
-#not optimal, use for prototype
+#not optimal, use for pyotp package
 def generateOTP():
   otp =""
   for i in range(6):
