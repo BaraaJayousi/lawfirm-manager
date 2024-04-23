@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 #importing UserManager class
 from .manager import UserManager
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your models here.
 
@@ -31,7 +31,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 # Generate authentication token
   def tokens(self):
-    pass
+    refresh = RefreshToken.for_user(self)
+    return {
+      'refresh': str(refresh),
+      'access': str(refresh.access_token)
+    }
 
 class OneTimePassword(models.Model):
   user= models.OneToOneField(User, on_delete=models.CASCADE)
