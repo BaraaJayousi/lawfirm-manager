@@ -71,7 +71,7 @@ const AuthLogin = () => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                  <InputLabel htmlFor="email-login">البريد الالكتروني</InputLabel>
                   <OutlinedInput
                     id="email-login"
                     type="email"
@@ -79,8 +79,9 @@ const AuthLogin = () => {
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder="ادخل البريد الالكتروني"
                     fullWidth
+                    dir="ltr"
                     error={Boolean(touched.email && errors.email)}
                   />
                   {touched.email && errors.email && (
@@ -92,7 +93,7 @@ const AuthLogin = () => {
               </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
+                  <InputLabel htmlFor="password-login">كلمه المرور</InputLabel>
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.password && errors.password)}
@@ -102,6 +103,7 @@ const AuthLogin = () => {
                     name="password"
                     onBlur={handleBlur}
                     onChange={handleChange}
+                    dir="ltr"
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -137,10 +139,10 @@ const AuthLogin = () => {
                         size="small"
                       />
                     }
-                    label={<Typography variant="h6">Keep me sign in</Typography>}
+                    label={<Typography variant="h6">تذكرني</Typography>}
                   />
                   <Link variant="h6" component={RouterLink} to="" color="text.primary">
-                    Forgot Password?
+                    نسيت كلمة المرور؟
                   </Link>
                 </Stack>
               </Grid>
@@ -152,13 +154,13 @@ const AuthLogin = () => {
               <Grid item xs={12}>
                 <AnimateButton>
                   <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Login
+                    تسجيل الدخول
                   </Button>
                 </AnimateButton>
               </Grid>
               <Grid item xs={12}>
                 <Divider>
-                  <Typography variant="caption"> Login with</Typography>
+                  <Typography variant="caption"> تسجيل الدخول ب</Typography>
                 </Divider>
               </Grid>
               <Grid item xs={12}>
