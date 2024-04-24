@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView
-from .serializers import UserRegisterSerializer, LoginSerializer, PasswordResetRequestSerializer
+from .serializers import UserRegisterSerializer, LoginSerializer,SetNewPasswordSerializer, PasswordResetRequestSerializer, LogoutUserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -94,3 +94,24 @@ class PasswordResetConfirm(GenericAPIView):
     
     except DjangoUnicodeDecodeError:
       return Response({"message": "Token is expired or invalid"}, status=status.HTTP_401_UNAUTHORIZED)
+  
+
+class SetNewPassword(GenericAPIView):
+  serializer_class=SetNewPasswordSerializer
+  # used to update specified fields of a model, in this case the password
+  def patch(self,request):
+    print(request.data)
+    serializer= self.serializer_class(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    return Response({'message':'Password reset successful'}, status.HTTP_200_OK)
+
+
+class LogoutUserView(GenericAPIView):
+  serializer_class=LogoutUserSerializer
+  permission_classes=[IsAuthenticated]
+
+  def post(self, request):
+    serializer= self.serializer_class(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(status=status.HTTP_204_NO_CONTENT)
