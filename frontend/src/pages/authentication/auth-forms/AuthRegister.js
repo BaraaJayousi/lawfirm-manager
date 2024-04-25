@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // material-ui
 import {
@@ -39,6 +39,7 @@ const AuthRegister = () => {
     setShowPassword(!showPassword);
   };
 
+  const navigate = useNavigate();
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -84,13 +85,16 @@ const AuthRegister = () => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             //make call to api
-            
+            const response = await axios.post('http://localhost:8000/api/auth/register/', values);
             //check our response
-            //redirect to verify email component
+            if (response.status === 201) {
+              setStatus({ success: true });
+              setSubmitting(false);
+              //redirect to verify email component
+              navigate('/verify-email');
+              console.log(response.data);
+            }
             //pass server error
-            alert(JSON.stringify(values, null, 2));
-            setStatus({ success: false });
-            setSubmitting(false);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });

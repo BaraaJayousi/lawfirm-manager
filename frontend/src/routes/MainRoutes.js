@@ -20,7 +20,7 @@ const CustomerPage = Loadable(lazy(() => import('pages/customer')));
 const CasesPage = Loadable(lazy(() => import('pages/cases')));
 const CasesTypesPage = Loadable(lazy(() => import('pages/cases-types')));
 const CasePage = Loadable(lazy(() => import('pages/case')));
-const CreateCasePage = Loadable(lazy(()=> import('pages/case-create')))
+const CreateCasePage = Loadable(lazy(() => import('pages/case-create')));
 
 // render - utilities
 const Typography = Loadable(lazy(() => import('pages/components-overview/Typography')));

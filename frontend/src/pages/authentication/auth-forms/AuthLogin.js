@@ -1,5 +1,7 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { React, useEffect, useState } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import {
@@ -25,6 +27,7 @@ import { Formik } from 'formik';
 // project import
 import FirebaseSocial from './FirebaseSocial';
 import AnimateButton from 'components/@extended/AnimateButton';
+import { userLogin } from 'store/reducers/authActions';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
@@ -32,9 +35,9 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLogin = () => {
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = useState(false);
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -42,27 +45,40 @@ const AuthLogin = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const { loading, error, userInfo } = useSelector((state) => state.authentication);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/dashboard/default');
+    }
+  }, [navigate, userInfo]);
   return (
     <>
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
+          email: '',
+          password: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          email: Yup.string().email('ادخل بريد الكتروني صحيح').max(255).required('البريد الالكتروني مطلوب'),
+          password: Yup.string().max(255).required('كملة المرور مطلوبه')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
+            // const response = await axios.post('http://localhost:8000/api/auth/login/', values);
+            // console.log(response);
+            await dispatch(userLogin(values));
             setStatus({ success: false });
-            setSubmitting(false);
+            setSubmitting(loading);
+            setErrors({ submit: error });
           } catch (err) {
             setStatus({ success: false });
             setErrors({ submit: err.message });
-            setSubmitting(false);
+            setSubmitting(loading);
           }
         }}
       >
