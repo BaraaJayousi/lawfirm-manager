@@ -1,5 +1,5 @@
 import Header from 'components/general/Header';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -7,15 +7,24 @@ import { Stack, Grid, Typography } from '@mui/material';
 import CustomerCard from 'components/customers/CustomerCard';
 import AnalyticFinance from 'components/cards/statistics/AnalyticFinance';
 import MainCard from 'components/MainCard';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from '../../../node_modules/react-redux/dist/react-redux';
 
-const index = () => {
+const Customer = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { customers } = useSelector((state) => state.contacts);
+  const [customer, setCustomer] = useState({});
+  useEffect(() => {
+    setCustomer(customers ? customers.filter((cust) => cust.id == id)[0] : navigate('/customers'));
+  }, []);
   return (
     <>
       <Stack spacing={2}>
         <Header title="بيانات العميل" btnTitle="قضيه جديده" icon={<FontAwesomeIcon icon="fa-solid fa-gavel" />} />
         <Grid container spacing={0}>
           <Grid item xs={12} sm={12} md={4} xl={4}>
-            <CustomerCard />
+            <CustomerCard data={customer} />
           </Grid>
           {/* right side */}
           <Grid
@@ -71,4 +80,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Customer;

@@ -77,7 +77,6 @@ class PasswordResetRequestSerializer(serializers.Serializer):
   def validate(self, attrs):
     email = attrs.get('email')
     if User.objects.filter(email=email).exists():
-      print('user exists')
       user= User.objects.get(email=email)
       #user id encoded in base 64
       uidb64= urlsafe_base64_encode(smart_bytes(user.id))

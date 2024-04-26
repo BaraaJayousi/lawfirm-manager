@@ -42,7 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts',
-    'lawyer_manager'
+    'lawyer_manager',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

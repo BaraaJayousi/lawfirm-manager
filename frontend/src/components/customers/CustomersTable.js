@@ -79,12 +79,6 @@ const headCells = [
     label: 'رقم الهاتف'
   },
   {
-    id: 'status',
-    align: 'left',
-    disablePadding: false,
-    label: 'الحاله'
-  },
-  {
     id: 'actions',
     align: 'right',
     disablePadding: false,
@@ -156,12 +150,14 @@ OrderStatus.propTypes = {
 
 // ==============================|| CUSTOEMRS TABLE - ACTION BUTTONS ==================== //
 
-const ActionButtons = () => {
+const ActionButtons = ({customerID}) => {
   return (
     <>
-      <IconButton color="secondary">
-        <FontAwesomeIcon icon={faEye} />
-      </IconButton>
+      <Link component={RouterLink} to={`/customers/${customerID}`}>
+        <IconButton color="secondary">
+          <FontAwesomeIcon icon={faEye} />
+        </IconButton>
+      </Link>
       <IconButton color="primary">
         <FontAwesomeIcon icon={faPen} />
       </IconButton>
@@ -174,12 +170,13 @@ const ActionButtons = () => {
 
 // ==============================|| ORDER TABLE ||============================== //
 
-function CustomersTable() {
+function CustomersTable(data) {
+  const customers = data.data
   const [order] = useState('asc');
   const [orderBy] = useState('idNo');
   const [selected] = useState([]);
 
-  const isSelected = (trackingNo) => selected.indexOf(trackingNo) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
   return (
     <Box>
       <TableContainer
@@ -205,8 +202,8 @@ function CustomersTable() {
         >
           <OrderTableHead order={order} orderBy={orderBy} />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
-              const isItemSelected = isSelected(row.idNo);
+            {stableSort(customers, getComparator(order, orderBy)).map((row, index) => {
+              const isItemSelected = isSelected(row.id);
               const labelId = `enhanced-table-checkbox-${index}`;
               return (
                 <TableRow
@@ -219,23 +216,20 @@ function CustomersTable() {
                   selected={isItemSelected}
                 >
                   <TableCell component="th" id={labelId} scope="row" align="left">
-                    <Link color="secondary" component={RouterLink} to="/customers/3">
-                      {row.idNo}
+                    <Link color="secondary" component={RouterLink} to={`/customers/${row.id}`}>
+                      {row.id}
                     </Link>
                   </TableCell>
                   <TableCell align="left" >
-                    <Link color="primary" component={RouterLink} to="/customers/2">
+                    <Link color="primary" component={RouterLink} to={`/customers/${row.id}`}>
                       {row.name}
                     </Link>
                   </TableCell>
-                  <TableCell align="left">{row.phoneNumber}</TableCell>
-                  <TableCell align="left">
-                    <OrderStatus status={row.customerStatus} />
-                  </TableCell>
+                  <TableCell align="left">{row.phone_number}</TableCell>
                   <TableCell align="right">
                     {/* Good component, use for financial reports */}
                     {/* <NumberFormat value={row.protein} displayType="text" thousandSeparator prefix="$" /> */}
-                    <ActionButtons />
+                    <ActionButtons customerID={row.id}/>
                   </TableCell>
                 </TableRow>
               );

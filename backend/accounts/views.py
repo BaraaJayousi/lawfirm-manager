@@ -29,8 +29,6 @@ class UserRegisterView(GenericAPIView):
       }, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-  
-
 
 #class view verifies if the user has an authentic email address by checking OTP code
 class VerifyUserEmail(GenericAPIView):

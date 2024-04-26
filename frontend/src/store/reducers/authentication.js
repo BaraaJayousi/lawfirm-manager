@@ -4,7 +4,7 @@ import { getData, userLogin, userLogout } from './authActions';
 // initialize userToken from local storage
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null;
 const refreshToken = localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : null;
-const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')): null;
+const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
 const initialState = {
   loading: false,
@@ -58,22 +58,22 @@ const authentication = createSlice({
         state.refreshToken = null;
         state.error = action.payload;
       })
-      .addCase(getData.fulfilled, (state, action) =>{
-        state.loading = false
-        state.success = true
-        state.accessToken= accessToken
-        state.refreshToken= refreshToken
+      .addCase(getData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
       })
-      .addCase(getData.pending, (state, action) =>{
-        state.loading = false
-        state.success = false
+      .addCase(getData.pending, (state) => {
+        state.loading = false;
+        state.success = false;
       })
-      .addCase(getData.rejected, (state, action) =>{
-        state.loading = false
-        state.success = false
-        state.accessToken= accessToken
-        state.refreshToken= refreshToken
-      })
+      .addCase(getData.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
+      });
   }
 });
 

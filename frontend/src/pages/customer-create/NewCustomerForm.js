@@ -22,8 +22,14 @@ import {
   Typography,
   TextField
 } from '@mui/material';
+import { jwtDecode } from '../../../node_modules/jwt-decode/build/cjs/index';
+import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
 
+
+const user = jwtDecode(localStorage.getItem('accessToken'));
 function NewCaseForm() {
+  const navigate=useNavigate()
+
   return (
     <>
       <MainCard sx={{ flexGrow: 1 }}>
@@ -60,7 +66,7 @@ function NewCaseForm() {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               //make call to api
-              console.log('submit contact');
+              values.user_id = user.user_id
               const response = await axiosInstance.post('api/contact/create/', values);
               //check our response
               if (response.status === 201) {

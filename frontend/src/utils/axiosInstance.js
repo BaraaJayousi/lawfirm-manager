@@ -25,6 +25,7 @@ axiosInstance.interceptors.request.use(async (req) => {
       try {
         const res = await axios.post(`${baseUrl}api/auth/token/refresh/`, { refresh: refreshToken });
         if (res.status == 200) {
+          console.log('token refreshed successfully')
           localStorage.setItem('accessToken', res.data.access);
           req.headers.Authorization = `Bearer ${res.data.access}`;
           return req;
