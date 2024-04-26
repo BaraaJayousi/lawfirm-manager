@@ -48,19 +48,19 @@ const AuthLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, userInfo } = useSelector((state) => state.authentication);
+  const { loading, error } = useSelector((state) => state.authentication);
 
-  useEffect(() => {
-    if (userInfo) {
-      navigate('/dashboard/default');
-    }
-  }, [navigate, userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     navigate('/dashboard/default');
+  //   }
+  // }, [navigate, userInfo]);
   return (
     <>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          email: 'test@t.com',
+          password: '12345678',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -72,9 +72,10 @@ const AuthLogin = () => {
             // const response = await axios.post('http://localhost:8000/api/auth/login/', values);
             // console.log(response);
             await dispatch(userLogin(values));
-            setStatus({ success: false });
+            setStatus({ success: true });
             setSubmitting(loading);
             setErrors({ submit: error });
+            navigate('/dashboard/default');
           } catch (err) {
             setStatus({ success: false });
             setErrors({ submit: err.message });

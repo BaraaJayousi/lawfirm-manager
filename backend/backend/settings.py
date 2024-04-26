@@ -42,6 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts',
+    'lawyer_manager'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,8 +113,8 @@ REST_FRAMEWORK = {
 
 #change JWT default settings
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=40),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=120),
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 

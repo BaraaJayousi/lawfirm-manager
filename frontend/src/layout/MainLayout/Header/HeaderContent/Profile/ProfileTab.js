@@ -4,18 +4,20 @@ import { useState } from 'react';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-
+import { useDispatch } from '../../../../../../node_modules/react-redux/dist/react-redux';
 // assets
 import { EditOutlined, ProfileOutlined, LogoutOutlined, UserOutlined, WalletOutlined } from '@ant-design/icons';
+import { getData } from 'store/reducers/authActions';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
 const ProfileTab = ({ handleLogout }) => {
   const theme = useTheme();
-
+  const dispatch = useDispatch();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const handleListItemClick = (event, index) => {
+  const handleListItemClick = async (event, index) => {
     setSelectedIndex(index);
+    const response = await dispatch(getData());
   };
 
   return (

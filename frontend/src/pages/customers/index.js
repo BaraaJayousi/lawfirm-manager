@@ -5,16 +5,12 @@ import MainCard from 'components/MainCard';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import Header from 'components/general/Header';
 
 function index() {
   return (
     <>
-      <Stack direction="row" justifyContent="space-between">
-        <Typography variant="h3">جميع العملاء</Typography>
-        <Button variant="contained" startIcon={<FontAwesomeIcon icon={faUserPlus} />}>
-          <Typography variant="h5">عميل جديد</Typography>
-        </Button>
-      </Stack>
+      <Header title="العملاء" btnTitle="عميل جديد" icon={<FontAwesomeIcon icon={faUserPlus} />} link="/customers/create" />
       <Grid Container>
         <Grid item>
           <MainCard content={false} sx={{ mt: 3, pb: 5 }}>

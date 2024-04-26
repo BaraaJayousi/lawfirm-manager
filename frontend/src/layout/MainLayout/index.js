@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Toolbar, useMediaQuery } from '@mui/material';
+import { Box, Toolbar, useMediaQuery, Button } from '@mui/material';
 
 // project import
 import Drawer from './Drawer';
@@ -23,7 +23,8 @@ const MainLayout = () => {
   const dispatch = useDispatch();
 
   const { drawerOpen } = useSelector((state) => state.menu);
-
+  const { accessToken } = useSelector((state) => state.authentication);
+  const navigate = useNavigate()
   // drawer toggler
   const [open, setOpen] = useState(drawerOpen);
   const handleDrawerToggle = () => {
@@ -31,6 +32,10 @@ const MainLayout = () => {
     dispatch(openDrawer({ drawerOpen: !open }));
   };
 
+  //redicrect automatically to login page for unauthorized users
+  const handleRedirect = ()=>{
+    navigate('/login');
+  }
   // set media wise responsive drawer
   useEffect(() => {
     setOpen(!matchDownLG);
@@ -43,7 +48,16 @@ const MainLayout = () => {
     if (open !== drawerOpen) setOpen(drawerOpen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [drawerOpen]);
-
+  if(!accessToken){
+    return(<>
+    <Box sx={{ display: 'flex', width: '100%' }}>
+    <h1>قم بتسجيل الدخول </h1>
+      <Button><Link to='/login'>
+        اضغط هنا
+      </Link></Button>
+    </Box>
+    </>)
+  }
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
       <Header open={open} handleDrawerToggle={handleDrawerToggle} />
