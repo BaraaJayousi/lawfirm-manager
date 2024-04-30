@@ -12,7 +12,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: ['']
+        ignoredActions: ['contacts/customers/fulfilled', 'contacts/customers/delete/fulfilled']
       }
     })
 });

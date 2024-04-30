@@ -4,13 +4,13 @@ import Header from 'components/general/Header';
 import { FontAwesomeIcon } from '../../../node_modules/@fortawesome/react-fontawesome/index';
 import NewCustomerForm from './NewCustomerForm';
 
-function CreateNewCustomer() {
+function CreateNewCustomer({newCustomer = true}) {
   return (
     <>
       <Stack spacing={2}>
-        <Header title="عميل جديد" />
+        {newCustomer ? <Header title="عميل جديد" /> : <Header title="تعديل بيانات العميل" />}
         <Grid container spacing={0}>
-          <NewCustomerForm />
+          <NewCustomerForm newCustomer={newCustomer} />
         </Grid>
       </Stack>
     </>

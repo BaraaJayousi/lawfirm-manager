@@ -31,7 +31,7 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 // ============================|| FIREBASE - REGISTER ||============================ //
-
+const baseUrl = process.env.REACT_APP_BACKEND_API;
 const AuthRegister = () => {
   const [level, setLevel] = useState();
   const [showPassword, setShowPassword] = useState(false);
@@ -85,7 +85,7 @@ const AuthRegister = () => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             //make call to api
-            const response = await axios.post('http://localhost:8000/api/auth/register/', values);
+            const response = await axios.post(`${baseUrl}/api/auth/register/`, values);
             //check our response
             if (response.status === 201) {
               setStatus({ success: true });

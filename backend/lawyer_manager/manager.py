@@ -10,3 +10,11 @@ class ContactsManager(Manager):
 
   def get_all_customers(self):
     return self.filter(contact_type='customer')
+  
+  def delete_customer(self,customer_id):
+    try:
+      user = self.get(id=customer_id)
+    except Exception as exp:
+      raise f'User does not exist {exp}'
+    
+    user.delete()

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCustomers } from './contactsActions';
+import { deleteCustomer, getCustomers } from './contactsActions';
 
 const initialState = {
   loading: false,
@@ -27,6 +27,22 @@ const contacts = createSlice({
         state.customers = action.payload.data;
       })
       .addCase(getCustomers.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.error;
+        state.customers = null;
+      })
+      .addCase(deleteCustomer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(deleteCustomer.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(deleteCustomer.rejected, (state, action) => {
         state.loading = false;
         state.success = false;
         state.error = action.error;

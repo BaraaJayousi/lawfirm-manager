@@ -12,8 +12,8 @@ import { Formik } from 'formik';
 // project import
 import AnimateButton from 'components/@extended/AnimateButton';
 
-// assets
-import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+
+const baseUrl = process.env.REACT_APP_BACKEND_API;
 
 const AuthVerifyEmail = () => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const AuthVerifyEmail = () => {
             // console.log('trying to submit')
             setStatus({ success: false });
             setSubmitting(true);
-            const response = await axios.post('http://localhost:8000/api/auth/verify-email/', values);
+            const response = await axios.post(`${baseUrl}/api/auth/verify-email/`, values);
             if (response.status == 200) {
               navigate('/login')
             } else {

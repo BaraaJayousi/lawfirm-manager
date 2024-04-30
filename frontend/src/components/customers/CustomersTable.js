@@ -12,6 +12,8 @@ import { Box, Link, Stack, Table, TableBody, TableCell, TableContainer, TableHea
 import Dot from 'components/@extended/Dot';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { deleteCustomer, getCustomers } from 'store/reducers/contactsActions';
+import { useDispatch } from '../../../node_modules/react-redux/dist/react-redux';
 
 function createData(idNo, name, phoneNumber, customerStatus, protein) {
   return { idNo, name, phoneNumber, customerStatus, protein };
@@ -104,7 +106,7 @@ function OrderTableHead({ order, orderBy }) {
         ))}
       </TableRow>
     </TableHead>
-);
+  );
 }
 
 OrderTableHead.propTypes = {
@@ -150,7 +152,7 @@ OrderStatus.propTypes = {
 
 // ==============================|| CUSTOEMRS TABLE - ACTION BUTTONS ==================== //
 
-const ActionButtons = ({customerID}) => {
+const ActionButtons = ({ customerID, handleDelete }) => {
   return (
     <>
       <Link component={RouterLink} to={`/customers/${customerID}`}>
@@ -158,10 +160,12 @@ const ActionButtons = ({customerID}) => {
           <FontAwesomeIcon icon={faEye} />
         </IconButton>
       </Link>
+      <Link component={RouterLink} to={`/customers/edit/${customerID}`}>
       <IconButton color="primary">
         <FontAwesomeIcon icon={faPen} />
       </IconButton>
-      <IconButton color="error">
+      </Link>
+      <IconButton color="error" onClick={() => handleDelete(customerID)}>
         <FontAwesomeIcon icon={faTrashCan} />
       </IconButton>
     </>
@@ -170,12 +174,11 @@ const ActionButtons = ({customerID}) => {
 
 // ==============================|| ORDER TABLE ||============================== //
 
-function CustomersTable(data) {
-  const customers = data.data
+function CustomersTable({data, handleDelete}) {
+  const customers = data;
   const [order] = useState('asc');
   const [orderBy] = useState('idNo');
   const [selected] = useState([]);
-
   const isSelected = (id) => selected.indexOf(id) !== -1;
   return (
     <Box>
@@ -211,7 +214,7 @@ function CustomersTable(data) {
                   role="checkbox"
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   aria-checked={isItemSelected}
-                  tabIndex={-1}
+                  tabIndex={index}
                   key={row.trackingNo}
                   selected={isItemSelected}
                 >
@@ -220,7 +223,7 @@ function CustomersTable(data) {
                       {row.id}
                     </Link>
                   </TableCell>
-                  <TableCell align="left" >
+                  <TableCell align="left">
                     <Link color="primary" component={RouterLink} to={`/customers/${row.id}`}>
                       {row.name}
                     </Link>
@@ -229,7 +232,7 @@ function CustomersTable(data) {
                   <TableCell align="right">
                     {/* Good component, use for financial reports */}
                     {/* <NumberFormat value={row.protein} displayType="text" thousandSeparator prefix="$" /> */}
-                    <ActionButtons customerID={row.id}/>
+                    <ActionButtons customerID={row.id} handleDelete={handleDelete} />
                   </TableCell>
                 </TableRow>
               );

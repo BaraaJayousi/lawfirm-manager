@@ -16,6 +16,7 @@ const CustomersPage = Loadable(lazy(() => import('pages/customers')));
 const CustomersTypes = Loadable(lazy(() => import('pages/customers-types')));
 const CustomerPage = Loadable(lazy(() => import('pages/customer')));
 const CustomerCreate = Loadable(lazy(() => import('pages/customer-create')));
+const CustomerEdit = Loadable(lazy(() => import('pages/customer-create')));
 
 //render - cases pages
 const CasesPage = Loadable(lazy(() => import('pages/cases')));
@@ -78,6 +79,10 @@ const MainRoutes = {
     {
       path: 'customers/create',
       element: <CustomerCreate />
+    },
+    {
+      path: 'customers/edit/:id',
+      element: <CustomerEdit newCustomer={false} />
     },
     {
       path: 'customers/types',

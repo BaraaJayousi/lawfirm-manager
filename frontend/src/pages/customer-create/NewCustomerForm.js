@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainCard from 'components/MainCard';
 import { Formik, Form } from 'formik';
 import axiosInstance from 'utils/axiosInstance';
@@ -23,34 +23,61 @@ import {
   TextField
 } from '@mui/material';
 import { jwtDecode } from '../../../node_modules/jwt-decode/build/cjs/index';
-import { useNavigate } from '../../../node_modules/react-router-dom/dist/index';
-
+import { useNavigate, useParams } from '../../../node_modules/react-router-dom/dist/index';
+import { useSelector } from '../../../node_modules/react-redux/dist/react-redux';
 
 const user = jwtDecode(localStorage.getItem('accessToken'));
-function NewCaseForm() {
-  const navigate=useNavigate()
 
+function NewCaseForm({ newCustomer }) {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { customers } = useSelector((state) => state.contacts);
+  const [customer, setCustomer] = useState({});
+  let selectedCustomer = customer;
+
+  if (!newCustomer) {
+    selectedCustomer = customers ? customers.filter((cust) => cust.id == id)[0] : navigate('/customers');
+  }
+  let formInitValues = newCustomer
+    ? {
+        name: '',
+        email: '',
+        date_of_birth: '',
+        user_id: '',
+        national_id: '',
+        company_name: '',
+        nationality: '',
+        notes: '',
+        country: '',
+        state: '',
+        city: '',
+        address: '',
+        postal_code: '',
+        phone_number: '',
+        contact_type: ''
+      }
+    : {
+        name: selectedCustomer.name,
+        email: selectedCustomer.email,
+        date_of_birth: '',
+        user_id: '',
+        national_id: selectedCustomer.national_id,
+        company_name: selectedCustomer.company_name,
+        nationality: selectedCustomer.nationality,
+        notes: selectedCustomer.notes,
+        country: '',
+        state: '',
+        city: '',
+        address: '',
+        postal_code: '',
+        phone_number: selectedCustomer.phone_number,
+        contact_type: ''
+      };
   return (
     <>
       <MainCard sx={{ flexGrow: 1 }}>
         <Formik
-          initialValues={{
-            name: '',
-            email: '',
-            date_of_birth: '',
-            user_id: '',
-            national_id: '',
-            company_name: '',
-            nationality: '',
-            notes: '',
-            country: '',
-            state: '',
-            city: '',
-            address: '',
-            postal_code: '',
-            phone_number: '',
-            contact_type: ''
-          }}
+          initialValues={formInitValues}
           validationSchema={Yup.object().shape({
             name: Yup.string().required('قم بادخال اسم العميل').max(255),
             email: Yup.string().email('قم بادخال بريد الكتروني صحيح').max(255),
@@ -66,15 +93,21 @@ function NewCaseForm() {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               //make call to api
-              values.user_id = user.user_id
-              const response = await axiosInstance.post('api/contact/create/', values);
-              //check our response
-              if (response.status === 201) {
-                setStatus({ success: true });
-                setSubmitting(false);
-                //redirect to verify email component
-                navigate('/customers');
-                console.log(response.data);
+              values.user_id = user.user_id;
+              if (newCustomer) {
+                const response = await axiosInstance.post('/api/contact/create/', values);
+                if (response.status === 201) {
+                  setStatus({ success: true });
+                  setSubmitting(false);
+                  navigate('/customers');
+                }
+              }else{
+                const response = await axiosInstance.put(`/api/contact/customers/${id}`, values);
+                if (response.status === 200) {
+                  setStatus({ success: true });
+                  setSubmitting(false);
+                  navigate('/customers');
+              }
               }
               //pass server error
             } catch (err) {
@@ -348,7 +381,7 @@ function NewCaseForm() {
                       variant="contained"
                       color="primary"
                     >
-                      اضافه العميل
+                      {newCustomer ? 'اضافه العميل' : 'تعديل بيانات العميل'}
                     </Button>
                   </AnimateButton>
                 </Grid>
